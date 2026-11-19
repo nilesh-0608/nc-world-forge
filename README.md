@@ -52,7 +52,14 @@ Build me a procedural world: a flooded gothic cathedral, knee-deep in
 still water, light coming down through broken rose windows.
 ```
 
-Or just `use nc-world-forge`. You do not need to know the engine, WGSL or WebGPU.
+Or invoke it directly — in Claude Code the skill's name is its slash command:
+
+```
+/nc-world-forge
+```
+
+You do not need to know the engine, WGSL or WebGPU. There is nothing else to configure: the
+skill registers on install, and it also triggers on its own when you describe a world.
 
 **3. Answer the twelve questions.** They come a few at a time, and each one maps onto
 something the engine actually draws, so there are no throwaway answers. "I don't know" is a

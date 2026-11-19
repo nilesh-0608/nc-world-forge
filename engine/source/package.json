@@ -1,0 +1,15 @@
+{
+  "name": "nc-world-forge-engine",
+  "private": true,
+  "description": "A setting-neutral procedural WebGPU world engine, bundled into one HTML file. Derived from Abyssal Garden by Maksymilian Dendura (MIT).",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:readable": "node build.mjs --readable",
+    "build:dev": "node build.mjs --dev"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

@@ -1,0 +1,212 @@
+<!doctype html>
+<!--
+  Built with the nc-world-forge engine.
+  Derived from Abyssal Garden by Maksymilian Dendura, https://github.com/Noniv/abyssal-garden
+  Abyssal Garden is released under the MIT License, Copyright (c) 2026 Maksymilian Dendura. The MIT License requires this
+  notice to be kept in all copies or substantial portions of the software: do not remove it, or the credit line on
+  the start screen, from any world generated from this engine.
+-->
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Skylight Cavern &middot; nc-world-forge reference world</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=theme-color content=#0b0c0e>
+<style>
+/* [ALSO TOUCH for a new world] the start screen: the title and the two lines under it in the markup below, and
+   the five colours in :root. Keep the credit line (#x) and the comment at the top of this file: they are the MIT
+   notice of Abyssal Garden, and build.mjs refuses to write a page without them.
+
+   The class on <body> is the state of the page:
+   l = loading, m = menu, g = in the scene (g p while the mouse is captured), l e = failed to start
+
+   One dark panel, hairline edges, one accent (--hot), spent only where it marks something. Every text colour was
+   chosen against the panel's lightest stop at its real 90% alpha composited over white, so it stays readable over
+   the brightest thing the scene can put behind it. */
+:root {
+  --ink: #f4f1ea;    /* headings */
+  --body: #e8e4dd;   /* body and key caps */
+  --dim: #cfc9c1;    /* secondary text inside the inset strips */
+  --mute: #a9a29a;   /* the quietest text: station mark, byline, footer, touch hint */
+  --hot: #9fd0c4;    /* the one accent */
+  --edge: #ffffff26; /* hairline on the dark */
+  --face: #1c1f24;   /* an opaque control face, so its contrast never depends on the scene */
+}
+html { background: #0b0c0e; }
+body {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%; margin: 0; overflow: hidden;
+  background: radial-gradient(#15171a, #0b0c0e 70%);
+  font: 400 clamp(13px, .7vw + .9vh, 30px)/1.5 Georgia, "Iowan Old Style", "Palatino Linotype", ui-serif, serif;
+  color: var(--body); -webkit-user-select: none; user-select: none;
+}
+/* a phone held upright gets the whole page turned on its side, so the scene is always landscape */
+@media (orientation: portrait) and (pointer: coarse) {
+  body { width: 100dvh; height: 100dvw; transform-origin: 0 0; transform: rotate(90deg) translateY(-100%); }
+}
+
+/* the scene is never blurred: the panel carries the contrast on its own */
+canvas {
+  position: absolute; width: 100%; height: 100%; touch-action: none; cursor: crosshair;
+  transition: opacity 1.6s;
+}
+.l canvas { opacity: 0; }
+
+/* menu layer: a transparent full-screen box, so the scene cannot be clicked while the panel is up.
+   The panel sits to the left under a scrim that fades out by three quarters across, so the right of the
+   frame is the live scene at full strength. */
+#m {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start;
+  padding: .9em; background: linear-gradient(90deg, #06070980 0 30%, #06070900 75%);
+  transition: opacity .5s, visibility .5s;
+}
+.g #m, .m #l, .l #g { opacity: 0; visibility: hidden; }
+
+#j {
+  box-sizing: border-box; width: min(31em, 100%); max-height: 100%; overflow: auto;
+  padding: 1.5em 1.7em 1.2em; border: 1px solid #ffffff1a; border-top-color: #ffffff30; border-radius: 3px;
+  background: linear-gradient(#16181be6, #0e0f11e6);
+  box-shadow: 0 1px 2px #00000073, 0 14px 32px #000000a6;
+  text-align: left; color-scheme: dark; /* so the overflow scrollbar is dark too */
+}
+p { margin: 0; }
+
+h1 {
+  margin: 0; font: 400 clamp(1.3em, 1.05em + 1.1vw, 1.85em)/1.15 Georgia, "Iowan Old Style", ui-serif, serif;
+  letter-spacing: .07em; overflow-wrap: anywhere; color: var(--ink);
+}
+h1::after { content: ""; display: block; width: 3.6em; height: 2px; margin-top: .22em; background: var(--hot); }
+#r { margin: .55em 0 .3em; font-style: italic; color: var(--dim); }
+#v { margin: 0 0 1.15em; font: 400 .72em/1.5 "Courier New", ui-monospace, monospace;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
+
+/* the loading line and the buttons share one grid cell, so nothing jumps when they swap */
+#a { display: grid; width: 100%; }
+#a > * { grid-area: 1/1; transition: opacity .8s, visibility .8s; }
+#s, #w, #q, #k, #h { font: 400 .78em/1.5 "Courier New", ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; }
+#s { color: var(--dim); }
+#w { margin-top: 1em; letter-spacing: .1em; color: var(--hot); text-wrap: balance; }
+
+/* survey line: a channel that fills as the world is built */
+#p { height: .3em; margin: .55em 0 0; overflow: hidden; background: #ffffff14; outline: 1px solid #ffffff1f; outline-offset: -1px; }
+#b {
+  display: block; height: 100%; background: var(--hot);
+  transform: scaleX(0); transform-origin: 0; will-change: transform;
+}
+.e #p { visibility: hidden; }
+.e #s { font-size: .95em; letter-spacing: 0; text-transform: none; }
+
+/* buttons and links: flat. Opaque faces, hairline edges, neutral offset shadows -- no glow anywhere. */
+button, a {
+  display: flex; align-items: center; justify-content: center; gap: .55em; padding: .6em 1.1em;
+  border: 1px solid var(--edge); border-radius: 3px; background: var(--face); box-shadow: 0 1px 2px #00000080;
+  font: 400 .82em/1.2 "Courier New", ui-monospace, monospace; letter-spacing: .18em; text-transform: uppercase;
+  text-decoration: none; color: var(--body); cursor: pointer; transition: transform .12s, background .12s, border-color .12s;
+}
+button:hover, a:hover { background: #262a31; transform: translateY(-.08em); }
+button:active, a:active { background: #161a1f; transform: translateY(.08em); }
+:focus-visible { outline: 2px solid var(--hot); outline-offset: 2px; }
+#g { display: grid; gap: .85em; }
+/* The one primary action. Its edge is neutral on purpose: main.js focuses this button as soon as the menu
+   opens, and an orange border under an orange focus ring reads as a double accent halo. The brackets carry
+   the accent instead; weight and elevation carry the hierarchy. */
+#d {
+  padding: .8em 1em; border: 1px solid #ffffff4d; background: var(--face); box-shadow: 0 1px 2px #00000080, 0 4px 10px #00000059;
+  font-size: 1em; letter-spacing: .22em; color: var(--ink);
+}
+#d::before { content: "["; color: var(--hot); }
+#d::after { content: "]"; color: var(--hot); }
+#d:hover { background: #262a31; }
+
+/* detail level: three choices on one inset row, the current one filled in accent */
+#q { display: flex; align-items: center; gap: .4em; padding: .3em .4em; border: 1px solid #ffffff1f; border-radius: 3px; background: #ffffff0a; }
+#q span { flex: 1; padding-left: .4em; color: var(--dim); }
+#q button {
+  flex: 0 0 auto; padding: .45em .7em; border: 0; background: none; box-shadow: none;
+  font-size: 1em; letter-spacing: .12em; color: var(--dim);
+}
+#q button:hover { background: #ffffff14; transform: none; }
+#q .on { background: var(--hot); color: #10161a; pointer-events: none; }
+
+/* list of controls: key caps right-aligned against their labels, in two wrapping groups */
+#k {
+  display: flex; flex-wrap: wrap; gap: .5em 1.6em; padding: .85em .2em;
+  border-top: 1px solid #ffffff14; border-bottom: 1px solid #ffffff14; letter-spacing: .1em; color: var(--dim);
+}
+#k p { display: grid; grid-template-columns: auto auto; align-content: start; align-items: center; gap: .4em .8em; }
+#k i { display: flex; justify-self: end; align-items: center; gap: .2em; font-style: normal; }
+#k b {
+  min-width: 1em; padding: .15em .4em; border: 1px solid #ffffff2b; border-radius: 2px; background: #262a30;
+  font-size: .9em; letter-spacing: 0; color: var(--body); text-align: center;
+}
+#h { display: none; letter-spacing: .08em; color: var(--mute); }
+@media (pointer: coarse), (max-height: 30em) {
+  #k { display: none; }
+}
+@media (pointer: coarse) {
+  #h { display: block; }
+}
+
+/* a start-up failure is a paragraph to be read, not a status line: let it wrap and be selected */
+.e #s { line-height: 1.55; color: var(--body); -webkit-user-select: text; user-select: text; }
+/* the MIT credit to the original: always visible on the start screen, never hidden by a media query */
+#x { margin-top: 1em; padding-top: .75em; border-top: 1px solid #ffffff14; font-size: .74em; line-height: 1.5; color: var(--mute); }
+#x a { display: inline; padding: 0; border: 0; background: none; box-shadow: none; font: inherit; letter-spacing: 0; text-transform: none; text-decoration: underline; color: var(--dim); }
+#x a:hover { background: none; color: var(--ink); transform: none; }
+
+
+/* in the scene: a small menu button (hidden while the mouse is captured, Esc does the same) and the stats line */
+#o {
+  position: absolute; top: .6em; right: .6em; display: none; padding: .25em .55em; border: 1px solid var(--edge);
+  border-radius: 3px; background: #14161aeb; box-shadow: 0 2px 6px #000000a6; font-size: 1.2em; color: var(--body);
+}
+.g #o { display: flex; }
+.p #o { display: none; }
+/* the stats line gets a real plate of its own, so it is readable without leaning on a shadow */
+#i {
+  position: absolute; top: 1em; left: 1.2em; display: none; margin: 0; padding: .35em .6em; border-radius: 3px;
+  font: .75em/1.6 ui-monospace, Consolas, monospace; color: var(--body); background: #0b0c0ed9;
+  white-space: pre-wrap; pointer-events: none;
+}
+.g #i { display: block; }
+#i:empty { display: none; } /* H toggles stats by clearing the text: an empty plate must not sit over the scene */
+</style>
+</head>
+<body class=l>
+<canvas id=c></canvas>
+<div id=m>
+  <div id=j>
+    <h1>Skylight Cavern</h1>
+    <p id=r>a limestone cavern under a fallen roof</p>
+    <p id=v>nc-world-forge &middot; reference world</p>
+    <div id=a>
+      <div id=l><p id=s>Starting&hellip;</p><div id=p><i id=b></i></div><p id=w hidden>Use Google Chrome for optimal experience</p></div>
+      <div id=g>
+        <button id=d>Enter</button>
+        <p id=q><span>Detail</span><button>Low</button><button>Medium</button><button>High</button></p>
+        <div id=k>
+          <p>
+            <i><b>W</b><b>A</b><b>S</b><b>D</b></i>Move
+            <i><b>Q</b><b>E</b></i>Down / up
+            <i><b>Shift</b></i>Faster
+            <i><b>1</b>&ndash;<b>6</b></i>Viewpoints
+          </p>
+          <p>
+            <i><b>Esc</b></i>Menu
+            <i><b>M</b></i>Mute
+            <i><b>N</b></i>Day / night
+            <i><b>H</b></i>Stats
+          </p>
+        </div>
+        <p id=h>Hold to walk forward &middot; slide to steer &middot; second finger to go faster</p>
+      </div>
+    </div>
+    <p id=x>Engine derived from <a href=https://github.com/Noniv/abyssal-garden target=_blank rel=noopener>Abyssal Garden</a> by Maksymilian Dendura, used under the MIT License.</p>
+  </div>
+</div>
+<button id=o aria-label=Menu>&equiv;</button>
+<pre id=i></pre>
+<script>
+/*SCRIPT*/
+</script>
+</body>
+</html>

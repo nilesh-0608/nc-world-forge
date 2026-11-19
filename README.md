@@ -27,8 +27,16 @@ against.
 
 ## Install
 
+Any agent that reads `SKILL.md` — Claude Code, Codex, Cursor, OpenCode and others:
+
 ```
 npx skills add nilesh-0608/nc-world-forge
+```
+
+Or, on Claude Code 2.1.275 or later, as a plugin:
+
+```
+/plugin install nc-world-forge --marketplace nilesh-0608/nc-world-forge
 ```
 
 Then, in your agent session, ask for a world. The skill triggers on requests like "build me

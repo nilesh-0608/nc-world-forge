@@ -1,0 +1,13 @@
+{
+  "name": "nc-world-forge",
+  "displayName": "World Forge",
+  "description": "Interviews you about a world, then builds it as a single self-contained procedural WebGPU HTML file and verifies it against a ten-gate visual protocol.",
+  "author": {
+    "name": "nilesh-0608",
+    "url": "https://github.com/nilesh-0608"
+  },
+  "homepage": "https://nilesh-0608.github.io/nc-world-forge/engine/",
+  "repository": "https://github.com/nilesh-0608/nc-world-forge",
+  "license": "MIT",
+  "keywords": ["webgpu", "procedural-generation", "wgsl", "3d", "generative"]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "nc-worlds",
+  "description": "Procedural WebGPU world-building skills by nilesh-0608.",
+  "owner": { "name": "nilesh-0608", "url": "https://github.com/nilesh-0608" },
+  "plugins": [
+    {
+      "name": "nc-world-forge",
+      "source": "./",
+      "description": "Interviews you about a world, then builds it as a single self-contained procedural WebGPU HTML file and verifies it against a ten-gate visual protocol.",
+      "category": "creative",
+      "tags": ["webgpu", "procedural-generation", "3d", "wgsl"]
+    }
+  ]
+}

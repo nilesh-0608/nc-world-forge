@@ -27,7 +27,7 @@ against.
 
 ## Install
 
-Any agent that reads `SKILL.md` — Claude Code, Codex, Cursor, OpenCode and others:
+With the skills CLI:
 
 ```
 npx skills add nilesh-0608/nc-world-forge

@@ -76,13 +76,13 @@ h1 {
 }
 h1::after { content: ""; display: block; width: 3.6em; height: 2px; margin-top: .22em; background: var(--hot); }
 #r { margin: .55em 0 .3em; font-style: italic; color: var(--dim); }
-#v { margin: 0 0 1.15em; font: 400 .72em/1.5 "Courier New", ui-monospace, monospace;
+#v { margin: 0 0 1.15em; font: 400 .72em/1.5 "Courier New", ui-monospace, monospace; font-size: max(11px, .72em);
   letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
 
 /* the loading line and the buttons share one grid cell, so nothing jumps when they swap */
 #a { display: grid; width: 100%; }
 #a > * { grid-area: 1/1; transition: opacity .8s, visibility .8s; }
-#s, #w, #q, #k, #h { font: 400 .78em/1.5 "Courier New", ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; }
+#s, #w, #q, #k, #h { font: 400 .78em/1.5 "Courier New", ui-monospace, monospace; font-size: max(11px, .78em); letter-spacing: .14em; text-transform: uppercase; }
 #s { color: var(--dim); }
 #w { margin-top: 1em; letter-spacing: .1em; color: var(--hot); text-wrap: balance; }
 
@@ -136,7 +136,7 @@ button:active, a:active { background: #161a1f; transform: translateY(.08em); }
 #k i { display: flex; justify-self: end; align-items: center; gap: .2em; font-style: normal; }
 #k b {
   min-width: 1em; padding: .15em .4em; border: 1px solid #ffffff2b; border-radius: 2px; background: #262a30;
-  font-size: .9em; letter-spacing: 0; color: var(--body); text-align: center;
+  font-size: max(11px, .9em); letter-spacing: 0; color: var(--body); text-align: center;
 }
 #h { display: none; letter-spacing: .08em; color: var(--mute); }
 @media (pointer: coarse), (max-height: 30em) {
@@ -149,7 +149,7 @@ button:active, a:active { background: #161a1f; transform: translateY(.08em); }
 /* a start-up failure is a paragraph to be read, not a status line: let it wrap and be selected */
 .e #s { line-height: 1.55; color: var(--body); -webkit-user-select: text; user-select: text; }
 /* the MIT credit to the original: always visible on the start screen, never hidden by a media query */
-#x { margin-top: 1em; padding-top: .75em; border-top: 1px solid #ffffff14; font-size: .74em; line-height: 1.5; color: var(--mute); }
+#x { margin-top: 1em; padding-top: .75em; border-top: 1px solid #ffffff14; font-size: max(11px, .74em); line-height: 1.5; color: var(--mute); }
 #x a { display: inline; padding: 0; border: 0; background: none; box-shadow: none; font: inherit; letter-spacing: 0; text-transform: none; text-decoration: underline; color: var(--dim); }
 #x a:hover { background: none; color: var(--ink); transform: none; }
 

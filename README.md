@@ -140,8 +140,12 @@ The family is guidance so you can self-select. It is not a gate.
 
 Also honest:
 
-- **The skill has not shipped yet and has not been used by anyone.** There are no download
-  counts, benchmarks across machines, or user reports to show you, because there are none.
+- **No world has been built end to end with this skill yet.** The engine and the reference
+  world are verified on a real GPU — shaders compile, all six viewpoints render, the ten
+  gates were walked. The interview-to-finished-world path has not been run once. You may be
+  the first, and it may be rough.
+- **There are no download counts, cross-machine benchmarks, or user reports**, because there
+  are none.
 - **One performance figure has been measured:** median frame time 5.6 ms at 1440×900 on an
   RTX 4060 Ti. That run was refresh-capped, so it is a floor on what the engine can do, not
   a ceiling. Nothing has been measured on phones, on integrated graphics, or on any other

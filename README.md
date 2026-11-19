@@ -12,6 +12,19 @@ the page opens.
 
 ---
 
+## See it first
+
+**[Open Skylight Cavern →](https://nilesh-0608.github.io/nc-world-forge/engine/)** — the
+reference world that ships with the engine, running in your browser.
+
+A limestone cavern under a collapsed roof: shafts falling through the openings onto a moss
+mound, dust lit only inside the beams, swiftlets wheeling under the roof and kites circling
+the sky above it. It renders the moment you clone the repo, and it fills all eight content
+slots the interview asks about — so there is always a working example to read the docs
+against.
+
+---
+
 ## Install
 
 ```
@@ -24,6 +37,51 @@ a procedural world", "a flooded cathedral I can fly through", or by name.
 **You need:** Node, and a browser with WebGPU and graphics acceleration switched on — in
 Chrome, `chrome://settings/system` → *Use graphics acceleration when available*. The build
 works without a GPU; the verification does not.
+
+---
+
+## How to use it
+
+**1. Install it** (above), then open an agent session in the folder where you want the world
+to live — an empty folder is fine.
+
+**2. Ask for a world.** Say what you want in your own words:
+
+```
+Build me a procedural world: a flooded gothic cathedral, knee-deep in
+still water, light coming down through broken rose windows.
+```
+
+Or just `use nc-world-forge`. You do not need to know the engine, WGSL or WebGPU.
+
+**3. Answer the twelve questions.** They come a few at a time, and each one maps onto
+something the engine actually draws, so there are no throwaway answers. "I don't know" is a
+usable answer — the skill proposes something and you correct it.
+
+**4. Let it build and verify.** It copies `engine/` into `./<your-world>/`, runs
+`npm install`, edits the seam, builds, and then works through the ten gates. Expect to be
+asked to look at screenshots: **the visual gates need a real GPU, so they run in your
+session, not in a subagent.**
+
+**5. You get back:**
+
+| | |
+|---|---|
+| `<your-world>/index.html` | the world — one self-contained file, open it in Chrome |
+| `<your-world>/WORLD-BRIEF.md` | your answers, and which slots you left empty |
+| `<your-world>/source/` | the readable source, to keep tuning |
+| the gate table | ten gates with evidence, and an honest list of what still looks wrong |
+
+**6. Keep tuning, or publish it.** `cd source && npm run build` rebuilds after any edit.
+`index.html` works offline and can be emailed; to put it online, push the folder to a repo
+and switch on GitHub Pages, which is how the two worlds below are hosted.
+
+### If something goes wrong
+
+- **A blank screen** usually means WebGPU or graphics acceleration is off. Check
+  `chrome://gpu`. Every generated world shows a plain message instead of a broken scene.
+- **"It built fine" is not done.** A green build is not the bar — see the gates.
+- **Keep the installed `engine/` clean.** Each world is a copy; never edit the original.
 
 ---
 
@@ -93,12 +151,17 @@ Also honest:
 Both of these were built by hand on the same lineage, before the skill existed. They are
 what the output looks like, not output of the skill.
 
-- **[nc-3d-world-amazon](https://github.com/nilesh-0608/nc-3d-world-amazon)** — an Amazon
-  rainforest. Buttressed trunks, light shafts through canopy gaps, fireflies in the
-  understorey, stars above the canopy at night.
-- **[nc-3d-world-volcano](https://github.com/nilesh-0608/nc-3d-world-volcano)** — an active
-  volcano. A breached crater rim, a lava lake, a cascade down a gorge with a rock bridge
-  over it, and a lava river out across the basin floor.
+- **nc-3d-world-amazon** — an Amazon rainforest. Buttressed trunks, light shafts through
+  canopy gaps, fireflies in the understorey, stars above the canopy at night.
+  [Open it →](https://nilesh-0608.github.io/nc-3d-world-amazon/) ·
+  [source](https://github.com/nilesh-0608/nc-3d-world-amazon)
+- **nc-3d-world-volcano** — an active volcano. A breached crater rim, a lava lake, a cascade
+  down a gorge with a rock bridge over it, and a lava river out across the basin floor.
+  [Open it →](https://nilesh-0608.github.io/nc-3d-world-volcano/) ·
+  [source](https://github.com/nilesh-0608/nc-3d-world-volcano)
+
+Those two are linked to each other: each has a doorway standing in it that you can fly
+through to reach the other. Press `1` in either and look for it.
 
 ---
 

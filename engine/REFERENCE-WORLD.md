@@ -1,5 +1,7 @@
 # The reference world: Skylight Cavern
 
+**[Open it in your browser →](https://nilesh-0608.github.io/nc-world-forge/engine/)**
+
 `engine/index.html` is the engine with one world in it, so that it renders the moment it is opened. That world is
 a **limestone cavern under a collapsed roof**: a floor at about −48 m, a rock roof at about −22 m, eight ragged
 openings in the roof, and daylight coming down through them.
